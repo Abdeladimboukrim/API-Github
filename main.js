@@ -36,12 +36,13 @@ function getRepos() {
         // left img 
         let leftDiv = document.createElement("div");
         leftDiv.className = 'card col-sm-3';    
+        
         //  // left img 
         //  let leftDiv = document.createElement("div");
         //  let att2=document.createAttribute("class");
         //  att2.value="card col-sm-3";
         //  rightDiv.classList.add("mystyle")
-        
+
         // Create img
         let img = document.createElement("img");
         img.src = "(repo.avatar_url)";
