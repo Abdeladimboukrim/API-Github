@@ -1,11 +1,12 @@
 // Main Variables
-let theInput = document.querySelector(".get-repos input");
-let getButton = document.querySelector(".get-button");
+let theInput = document.querySelector(".username");
+let getButton = document.querySelector(".search");
 let reposData = document.querySelector(".show-data");
 
-getButton.onclick = function () {
-  getRepos();
-};
+
+getButton.addEventListener("click",function () {
+    getRepos();
+  })
 
 // Get Repos Function
 function getRepos() {
@@ -28,32 +29,53 @@ function getRepos() {
       // Loop On Repositories
       repositories.forEach(repo => {
 
-        // Create The Main Div Element
+        // Create The Main Div Element  ... container box 
         let mainDiv = document.createElement("div");
+        mainDiv.className = 'row two';
 
-        // Create Repo Name Text
+        // left img 
+        let leftDiv = document.createElement("div");
+        leftDiv.className = 'card col-sm-3';    
+        //  // left img 
+        //  let leftDiv = document.createElement("div");
+        //  let att2=document.createAttribute("class");
+        //  att2.value="card col-sm-3";
+        //  rightDiv.classList.add("mystyle")
+        
+        // Create img
+        let img = document.createElement("img");
+        img.src = "(repo.avatar_url)";
+        img.classList.add("img-thumbnail");        
+        leftDiv.appendChild(img);
+
+
+        //right section repo name .. desc ..span  .. update
+        let rightDiv = document.createElement("div");
+        rightDiv.className = 'card-body col-sm-9'; 
+
+        
+            // Create Repo Name Text
         let repoName = document.createTextNode(repo.name);
 
+        // addd repo description
+        let descName = document.createTextNode(repo.description);
+
+        // let az = URL ; // img link 
+
+        let lastpush = document.createTextNode(repo.pushed_at);
+
+
         // Append The Text To Main Div
-        mainDiv.appendChild(repoName);
+        rightDiv.appendChild(repoName);
 
-        // Create Repo URL Anchor
-        let theUrl = document.createElement('a');
+        // addd
+        rightDiv.appendChild(descName);
 
-        // Create Repo Url Text
-        let theUrlText = document.createTextNode("Visit");
+        // leftDiv.appendChild(URL)
 
-        // Append The Repo Url Text To Anchor Tag
-        theUrl.appendChild(theUrlText);
+        rightDiv.appendChild(lastpush);
 
-        // Add Thje Hypertext Reference "href"
-        theUrl.href = `https://github.com/${theInput.value}/${repo.name}`;
-
-        // Set Attribute Blank
-        theUrl.setAttribute('target', '_blank');
-
-        // Append Url Anchor To Main Div
-        mainDiv.appendChild(theUrl);
+       
 
         // Create Stars Count Span
         let starsSpan = document.createElement("span");
@@ -61,16 +83,36 @@ function getRepos() {
         // Create The Stars Count Text
         let starsText = document.createTextNode(`Stars ${repo.stargazers_count}`);
 
+        // adddddd span for issues
+
+        let issuesSpan = document.createElement("span");
+
+        let issuesText = document.createTextNode(`Issues ${repo.open_issues}`);
+
+
         // Add Stars Count Text To Stars Span
         starsSpan.appendChild(starsText);
 
-        // Append Stars Count Span To Main Div
-        mainDiv.appendChild(starsSpan);
+    // adddddddddd
+        issuesSpan.appendChild(issuesText);
 
-        // Add Class On Main Div
-        mainDiv.className = 'repo-box';
+        // Append Stars Count Span To Main Div
+        rightDiv.appendChild(starsSpan);
+
+    // addddd
+        rightDiv.appendChild(issuesSpan);
+
+        // // Add Class On Main Div
+        // mainDiv.className = 'repo-box';
+        
+        // leftDiv.className = 'card col-sm-3';
+        
+        // rightDiv.className = 'card-body col-sm-9';
 
         // Append The Main Div To Container
+        
+        mainDiv.appendChild(leftDiv);
+        mainDiv.appendChild(rightDiv);
         reposData.appendChild(mainDiv);
 
       });
